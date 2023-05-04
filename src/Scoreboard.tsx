@@ -10,7 +10,7 @@ function Scoreboard () {
   useEffect(() => {
     const getScores = async () => {
       const data = await fetch('/.netlify/functions/getScores');
-      console.log(data.body);
+      console.log(data.json());
       setScores(data.json())
     }
 
