@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import Timer from './Timer';
+import Scoreboard from './Scoreboard';
 
 function App() {
   const [score, setScore] = useState<number>(0);
+  const [gameStart, setGameStart] = useState(false);
   const intervalRef = useRef(0);
   
   useEffect(() => {
@@ -13,14 +15,15 @@ function App() {
 
   const handleGameStart = () => {
     setScore(0);
+    setGameStart(true);
     const startTime = Date.now()
-    const intervalId = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setScore(Date.now() - startTime);
-    }, 100);
-    intervalRef.current = intervalId;
+    });
   }
 
   const handleGameEnd = () => {
+    setGameStart(false);
     clearInterval(intervalRef.current)
   }
 
@@ -34,9 +37,10 @@ function App() {
           onMouseDown={handleGameStart}
           onMouseUp={handleGameEnd}
           >
-            {"Hold Me Baby <3"}
+            {!gameStart ? "Hold Me Baby <3": "Don't Let Gooooo"}
         </button>
       </div>
+      <Scoreboard />
     </>
   )
 }

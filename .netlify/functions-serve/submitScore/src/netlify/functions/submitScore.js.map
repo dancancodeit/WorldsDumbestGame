@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../Users/danielmiller/workspace/push-button/netlify/functions/submitScore.ts"],
+  "sourceRoot": "/var/folders/_c/pvbrwxb52bxb0bv3yhnzb75m0000gn/T/tmp-13031-7oqL4QJYRJdT",
+  "sourcesContent": ["import { Handler, HandlerEvent, HandlerContext } from \"@netlify/functions\";\n\nconst handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {\n  console.log(\"starting handler\");\n\n  return {\n    statusCode: 200,\n    body: JSON.stringify({ message: \"Hello World\" }),\n  };\n};\n\nexport { handler };"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEA,IAAM,UAAmB,OAAO,OAAqB,YAA4B;AAC/E,UAAQ,IAAI,kBAAkB;AAE9B,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU,EAAE,SAAS,cAAc,CAAC;AAAA,EACjD;AACF;",
+  "names": []
+}
