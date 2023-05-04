@@ -9,7 +9,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   const prisma = new PrismaClient()
 
   async function main() {
-    const scores = await prisma.score.findMany();
+    const scores = await prisma.score.findMany({
+      orderBy: { score: "desc" },
+      take: 10
+    });
     await prisma.$disconnect();
     return scores;
   }
