@@ -2,7 +2,7 @@ import { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { PrismaClient } from '@prisma/client'
 
 type Score = {
-  playerName: string,
+  name: string,
   score: number
 }
 
@@ -15,22 +15,23 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   }
   
   const prisma = new PrismaClient()
-  const {playerName, score} = JSON.parse(event.body) as Score
+  const {name, score} = JSON.parse(event.body) as Score
 
   async function main() {
     await prisma.score.create({
       data: {
-        player_name: playerName,
+        player_name: name,
         score: score
       }
     })
+    await prisma.$disconnect();
   }
 
   try { 
     await main()
     return {
       statusCode: 200,
-      headers: {"Content-Type": "application/json"},
+      headers: {'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({ succes: true }),
     };
   }
@@ -38,6 +39,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     console.error(e);
     return {
       statusCode: 500,
+      headers: {'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({ e }),
     };
   }

@@ -18,12 +18,14 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     const scores = await main() 
     return {
       statusCode: 200,
+      headers: {'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({ scores }),
     };
   }
   catch (e) { 
     return {
       statusCode: 500,
+      headers: {'Access-Control-Allow-Origin': '*'},
       body: JSON.stringify({ message: e }),
     };
   }

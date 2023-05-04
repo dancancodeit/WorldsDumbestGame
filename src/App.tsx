@@ -2,10 +2,12 @@ import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import Timer from './Timer';
 import Scoreboard from './Scoreboard';
+import Form from './Form';
 
 function App() {
   const [score, setScore] = useState<number>(0);
   const [gameStart, setGameStart] = useState(false);
+  const [gameEnd, setGameEnd] = useState(false);
   const intervalRef = useRef(0);
   
   useEffect(() => {
@@ -16,6 +18,7 @@ function App() {
   const handleGameStart = () => {
     setScore(0);
     setGameStart(true);
+    setGameEnd(false);
     const startTime = Date.now()
     intervalRef.current = setInterval(() => {
       setScore(Date.now() - startTime);
@@ -23,8 +26,11 @@ function App() {
   }
 
   const handleGameEnd = () => {
-    setGameStart(false);
-    clearInterval(intervalRef.current)
+    if (gameStart) {
+      setGameStart(false);
+      setGameEnd(true);
+      clearInterval(intervalRef.current)
+    }
   }
 
   return (
@@ -41,6 +47,7 @@ function App() {
         </button>
       </div>
       <Scoreboard />
+      {gameEnd && <Form score={score / 1000}/>}
     </>
   )
 }

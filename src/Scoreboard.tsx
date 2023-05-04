@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 type Score = {
-  playerName: string,
+  player_name: string,
   score: number
 }
 function Scoreboard () {
@@ -9,16 +9,20 @@ function Scoreboard () {
 
   useEffect(() => {
     const getScores = async () => {
-      const data = await fetch('/.netlify/functions/getScores');
-      const respData = await data.json()
-      setScores(respData as Score[])
+      const data = await fetch('http://localhost:9999/.netlify/functions/getScores');
+      const respData = await data.json()  
+      setScores(respData["scores"])
     }
 
     getScores();
-
   }, []);
 
-  return <>{scores}</>;
+  return (
+    <>
+      <h5>High Scores</h5>
+      {scores.map(score => <div><a style={{marginRight: 20}}>{score.player_name}</a><a>{score.score}</a></div>)}
+    </>
+  );
 }
 
 
